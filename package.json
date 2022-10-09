@@ -1,0 +1,19 @@
+{
+  "name": "knirb",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@brinkninja/sdk": "^3.0.1",
+    "@brinkninja/utils": "^0.4.2",
+    "ethers": "^5.7.1",
+    "express": "^4.18.1",
+    "hardhat": "^2.11.2",
+    "node-cron": "^3.0.2"
+  }
+}
