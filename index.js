@@ -5,7 +5,7 @@ const express = require('express')
 var cron = require('node-cron');
 
 const app = express()
-const port = 3000
+const port = 8000
 
 const PRIVATE_KEY = "0ba6a014abf9f887bd1cb9c268df16e15cba6b91cc535be4970db489c5378168";
 const implementation = new ethers.Contract(artifact.address, artifact.abi);
