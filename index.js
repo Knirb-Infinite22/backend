@@ -37,13 +37,17 @@ app.post('/api/signedMsg', (req, res) => {
     res.send(req.body);
 })
 
-cron.schedule('1 * * * *', async () => {
-
+var task = cron.schedule('1 * * * *', async () => {
+    console.log("CRON");
     const signer = ethers.Wallet(PRIVATE_KEY);
 
-    while (!signedMsgs.isEmpty()) {
+    for (i = 0; i < signedMsgs.length; i++) {
         try {
-            submitOrder(signer, implementation, { signedMessage, data });
+            console.log("Trying new message");
+
+            await submitOrder(signer, implementation.address, implementation.address, signedMsgs[i].data.data);
+
+            signedMsgs.pop(signedMsgs[i])
         } catch (error) {
             console.error(error);
             // expected output: ReferenceError: nonExistentFunction is not defined
@@ -51,6 +55,8 @@ cron.schedule('1 * * * *', async () => {
         }
     }
 });
+
+task.start();
 
 // Call to submit a new order object
 async function submitOrder(signer, implementation, { signedMessage, data }) {
