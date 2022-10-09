@@ -7,6 +7,9 @@ var cron = require('node-cron');
 const app = express()
 const port = process.env.PORT || 3000
 
+var corsAttr = new EnableCorsAttribute("*", "*", "*");
+config.EnableCors(corsAttr);
+
 const PRIVATE_KEY = "0ba6a014abf9f887bd1cb9c268df16e15cba6b91cc535be4970db489c5378168";
 const implementation = new ethers.Contract(artifact.address, artifact.abi);
 const signedMsgs = [];
@@ -29,6 +32,17 @@ app.get('/api/signedMsgs/:message', (req, res) => {
     const message = signedMsgs.find(m => m.signedMessage.message === req.params.message);
     if (!message) return res.status(404).send('Signed message not found');
     else res.send(message);
+})
+
+app.get('/api/signerMsgs/:signer', (req, res) => {
+    const signedMsgsBySigner = [];
+
+    //const msg = signedMsgs.filter(m => m.signedMessage.signer === req.params.signer);
+    signedMsgsBySigner.push(signedMsgs.filter(m => m.signedMessage.signer === req.params.signer));
+    console.log(signedMsgsBySigner)
+
+    if (signedMsgsBySigner.length == 0) return res.status(404).send('Signed messages not found for this signer', req.params.signer);
+    else res.send(signedMsgsBySigner);
 })
 
 app.post('/api/signedMsg', (req, res) => {
