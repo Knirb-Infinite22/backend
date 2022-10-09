@@ -3,12 +3,13 @@ const brink = require("@brinkninja/sdk");
 const artifact = require("./implementation.json");
 const express = require('express')
 var cron = require('node-cron');
+var cors = require('cors')
+
 
 const app = express()
 const port = process.env.PORT || 3000
 
-var corsAttr = new EnableCorsAttribute("*", "*", "*");
-config.EnableCors(corsAttr);
+
 
 const PRIVATE_KEY = "0ba6a014abf9f887bd1cb9c268df16e15cba6b91cc535be4970db489c5378168";
 const implementation = new ethers.Contract(artifact.address, artifact.abi);
@@ -16,6 +17,7 @@ const signedMsgs = [];
 
 
 app.use(express.json());
+app.use(cors());
 
 
 app.get('/', (req, res) => {
