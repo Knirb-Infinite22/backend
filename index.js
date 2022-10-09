@@ -37,7 +37,7 @@ app.post('/api/signedMsg', (req, res) => {
     res.send(req.body);
 })
 
-var task = cron.schedule('1 * * * *', async () => {
+var task = cron.schedule('1 * * * * *', async () => {
     console.log("CRON");
     const signer = ethers.Wallet(PRIVATE_KEY);
 
