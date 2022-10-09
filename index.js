@@ -13,7 +13,7 @@ const port = process.env.PORT || 3000
 
 const PRIVATE_KEY = "0ba6a014abf9f887bd1cb9c268df16e15cba6b91cc535be4970db489c5378168";
 const implementation = new ethers.Contract(artifact.address, artifact.abi);
-const signedMsgs = [];
+var signedMsgs = [];
 
 
 app.use(express.json());
@@ -30,6 +30,11 @@ app.get('/', (req, res) => {
 
 app.get('/api/signedMsgs', (req, res) => {
 
+    res.send(signedMsgs)
+})
+
+app.delete('/api/signedMsgs', (req, res) => {
+    signedMsgs = [];
     res.send(signedMsgs)
 })
 
