@@ -37,11 +37,10 @@ app.get('/api/signedMsgs/:message', (req, res) => {
 })
 
 app.get('/api/signerMsgs/:signer', (req, res) => {
-    const signedMsgsBySigner = [];
+    // const signedMsgsBySigner = [];
 
-    //const msg = signedMsgs.filter(m => m.signedMessage.signer === req.params.signer);
-    signedMsgsBySigner.push(signedMsgs.filter(m => m.signedMessage.signer === req.params.signer));
-    console.log(signedMsgsBySigner)
+    const signedMsgsBySigner = signedMsgs.filter(m => m.signedMessage.signer === req.params.signer);
+    //signedMsgsBySigner.push(signedMsgs.filter(m => m.signedMessage.signer === req.params.signer));
 
     if (signedMsgsBySigner.length == 0) return res.status(404).send('Signed messages not found for this signer', req.params.signer);
     else res.send(signedMsgsBySigner);
